@@ -70,6 +70,11 @@ if ( ! function_exists( 'site4custom_head') ) {
             .site_4_phoneBar{display:block;width:100%;padding:5px 0;background:" . $data['tap_to_call_data']['bgcolor_tap'] . ";font-size:" . $data['tap_to_call_data']['font_size'] . ";text-align:center;color:" . $data['tap_to_call_data']['textcolor_tap'] . ";}
             .site_4_phoneBar a{text-decoration: none;color:" . $data['tap_to_call_data']['textcolor_tap'] . ";}
         }";
+        if(is_user_logged_in()) {
+            $css .= ".stickyNavBar {position: fixed;top: 32px;width:100%;z-index: 99999999999;}";
+        }else {
+            $css .= ".stickyNavBar {position: fixed;top: 0;width:100%;z-index: 99999999999;}";
+        }
         $css .= '</style>';
         echo $css;
     }
@@ -79,13 +84,15 @@ if ( ! function_exists( 'site4custom_footer') ) {
     function site4custom_footer(){
         $js = "<script type='text/javascript'>";
         $js .= "jQuery(document).ready(function() {
-            var stickyNavTop = jQuery('.nav-primary'').offset().top;
+            var stickyNavTop = jQuery('.nav-primary').offset().top;
+            //var stickyNavTop = stickyNavTop1+30;
+            console.log(stickyNavTop);
             var stickyNav = function(){
                 var scrollTop = jQuery(window).scrollTop();
                 if (scrollTop > stickyNavTop) {
-                    jQuery('.nav-primary'').addClass('stickyNavBar');
+                    jQuery('.nav-primary').addClass('stickyNavBar');
                 } else {
-                    jQuery('.nav-primary'').removeClass('stickyNavBar');
+                    jQuery('.nav-primary').removeClass('stickyNavBar');
                 }
             };
 
