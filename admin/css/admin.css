@@ -1,0 +1,13 @@
+.sites4Container{width:90%;max-width:800px;background:#FFFFFF;padding:20px; overflow: hidden; margin: 0 0 20px 0;}
+.sites4Container h2{margin:0 0 10px 0;padding-bottom:8px;border-bottom:2px solid #24282d;}
+.sites4SubContainer{width:100%;margin: 0 0 30px 0; overflow: hidden;}
+.inputContainerL{width:48%; float: left;}
+.inputContainerR{width:48%; float: right;}
+.inputContainerF{width:100%;}
+.sites4SubContainer label{font-size:14px;font-weight:normal;margin-bottom: 5px;}
+.inputClass{padding:8px;width:96%;}
+
+.alertContainer{width:100%; margin: 0px auto 10px; padding: 0; display: none;}
+.alertContainer .success_site4{background:#DFF0D8; display: none; width:96%; padding:15px; text-align:left;color:#3C763D;border:1px solid #D6E9C6;}
+.alertContainer .error_site4{background:#F2DEDE; display: none; width:96%; padding:15px; text-align:left;color:#A94442;border:1px solid #EBCCD1;}
+.alertContainer .loading_site4{background:#D9EDF7; display: none; width:96%; padding:15px; text-align:left;color:#31708F;border:1px solid #BCE8F1;}

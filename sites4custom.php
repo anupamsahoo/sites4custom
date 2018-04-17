@@ -73,3 +73,28 @@ function site4_genesis_deactivation()
 }
 
 register_deactivation_hook(__FILE__, 'site4_genesis_deactivation');
+
+function sites4_action($action,$table,$data=null,$id=null){
+    global $wpdb;
+    $table_name = $wpdb->prefix . $table;
+    if($action == 'add'){
+        $result = $wpdb->insert($table_name, $data);
+    }
+    elseif($action == 'update'){
+        $result = $wpdb->update($table_name,$data, array( 'id' => $id ));
+    }
+    elseif($action == 'delete'){
+        $result = $wpdb->delete( $table_name, array( 'id' => $id ) );
+    }elseif($action == 'select'){
+        $result = $wpdb->get_row( "SELECT * FROM $table_name WHERE id = $id" );
+    }
+    else{
+        $result = false;
+    }
+    if($result){return $result;}else{return false;}
+}
+
+//admin hook
+include('admin/adminFunctions.php');
+//frontend hook
+include('frontend/frontend.php');
