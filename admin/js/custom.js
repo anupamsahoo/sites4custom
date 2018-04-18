@@ -64,9 +64,9 @@ jQuery(document).ready(function($){
 
         //Extend the wp.media object
         custom_bc_uploader = wp.media.frames.file_frame = wp.media({
-            title: 'Choose Credit Card Image',
+            title: 'Choose Image',
             button: {
-                text: 'Choose Credit Card Image'
+                text: 'Choose Image'
             },
             multiple: false
         });
@@ -109,6 +109,19 @@ jQuery(document).ready(function($){
         });
 
     });
+    jQuery('#headerOption').on('change', function(){
+        var opVal = jQuery(this).val();
+        if(opVal == 1){
+            jQuery('#headerOption2').fadeOut();
+            jQuery('#headerOption1').fadeIn();
+            jQuery('#header_option').val('1');
+        }
+        if(opVal == 2){
+            jQuery('#headerOption1').fadeOut();
+            jQuery('#headerOption2').fadeIn();
+            jQuery('#header_option').val('2');
+        }
+    })
     /*$(function() {
         $(".set-1").mtabs();
     });*/

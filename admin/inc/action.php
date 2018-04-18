@@ -3,6 +3,9 @@ define('WP_USE_THEMES', false);
 require_once('../../../../../wp-load.php');
 if($_POST['upd_site4'] == 'yes_upd')
 {
+    $headerOptionPost = $_POST['header_option'];
+    $upHoption = sites4_action_acpage('update','sites4custom_header_option',array('header_option' => $headerOptionPost),1);
+    //Option 1 Settings
     $tapCallyes = $_POST['wtsttcm'];
     $tapCallArray = array(
         'phonenumber'   => $_POST['phonenumber'],
@@ -51,7 +54,46 @@ if($_POST['upd_site4'] == 'yes_upd')
     $sliD = serialize($sArray);
     $slider = 'none';
     $u = update_site4_data($tapCallyes,$tap_to_call,$custom_header,$custom_header_data,$header_right,$header_right_data,$sld,$slider);
-    if($u) {
+
+    //Option 2
+    $topBarData = array(
+        'text' => $_POST['topBarText'],
+        'background_color' => $_POST['topBarBackgroundColor'],
+        'font_size' => $_POST['topBarFontSize'],
+        'font_color' => $_POST['topBarFontColor'],
+    );
+    $topBarDataS = serialize($topBarData);
+    $top_bar_data = base64_encode($topBarDataS);
+
+    $bannerAreaData = array(
+        'bannerBackground' => $_POST['bannerBackground'],
+        'bannerBackgroundColor' => $_POST['bannerBackgroundColor'],
+        'bannerTextFontColor' => $_POST['bannerTextFontColor'],
+        'bannerTextBackgroundColor' => $_POST['bannerTextBackgroundColor'],
+        'bannerText' => $_POST['bannerText'],
+        'bannerHeight' => $_POST['bannerHeight'],
+        'bannerTextTopMargin' => $_POST['bannerTextTopMargin'],
+        'bannerTextSize' => $_POST['bannerTextSize']
+    );
+    $bannerAreaDataS = serialize($bannerAreaData);
+    $bannerAreaDataEn = base64_encode($bannerAreaDataS);
+
+    $formData = array(
+        'formBackgroundColor' => $_POST['formBackgroundColor'],
+        'formShortcode' => $_POST['formShortcode']
+    );
+
+    $formDataS = serialize($formData);
+    $formDataEn = base64_encode($formDataS);
+
+    $updateop2Data = array(
+        'top_bar' => $top_bar_data,
+        'banner_area' => $bannerAreaDataEn,
+        'form_section' => $formDataEn
+    );
+    $updateOption2 = sites4_action_acpage('update','sites4custom_option2_data',$updateop2Data,1);
+
+    if($updateOption2 || $u || $upHoption) {
         $responseData['d'] = "<strong>Update Done</strong>";
     }
     else{
@@ -83,7 +125,25 @@ function update_site4_data($tapCallyes,$tap_to_call,$custom_header,$custom_heade
     );
     if($update){return true;}else{return false;}
 }
-
+function sites4_action_acpage($action,$table,$data=null,$id=null){
+    global $wpdb;
+    $table_name = $wpdb->prefix . $table;
+    if($action == 'add'){
+        $result = $wpdb->insert($table_name, $data);
+    }
+    elseif($action == 'update'){
+        $result = $wpdb->update($table_name,$data, array( 'id' => $id ));
+    }
+    elseif($action == 'delete'){
+        $result = $wpdb->delete( $table_name, array( 'id' => $id ) );
+    }elseif($action == 'select'){
+        $result = $wpdb->get_row( "SELECT * FROM $table_name WHERE id = $id" );
+    }
+    else{
+        $result = false;
+    }
+    if($result){return $result;}else{return false;}
+}
 header("Content-Type: application/json; charset=utf8");
 $return = json_encode($responseData);
 echo $return;
