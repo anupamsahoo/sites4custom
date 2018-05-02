@@ -80,6 +80,60 @@ jQuery(document).ready(function($){
         //Open the uploader dialog
         custom_bc_uploader.open();
     });
+    var custom_formI_uploader;
+    $('#upload_form_image').click(function(e) {
+        e.preventDefault();
+        //If the uploader object has already been created, reopen the dialog
+        if (custom_formI_uploader) {
+            custom_formI_uploader.open();
+            return;
+        }
+
+        //Extend the wp.media object
+        custom_formI_uploader = wp.media.frames.file_frame = wp.media({
+            title: 'Choose Image',
+            button: {
+                text: 'Choose Image'
+            },
+            multiple: false
+        });
+
+        //When a file is selected, grab the URL and set it as the text field's value
+        custom_formI_uploader.on('select', function() {
+            attachment = custom_formI_uploader.state().get('selection').first().toJSON();
+            $('#form_image').val(attachment.url);
+        });
+
+        //Open the uploader dialog
+        custom_formI_uploader.open();
+    });
+    var custom_phone_uploader;
+    $('#upload_form_image_phone').click(function(e) {
+        e.preventDefault();
+        //If the uploader object has already been created, reopen the dialog
+        if (custom_phone_uploader) {
+            custom_phone_uploader.open();
+            return;
+        }
+
+        //Extend the wp.media object
+        custom_phone_uploader = wp.media.frames.file_frame = wp.media({
+            title: 'Choose Phone Icon',
+            button: {
+                text: 'Choose Phone Icon'
+            },
+            multiple: false
+        });
+
+        //When a file is selected, grab the URL and set it as the text field's value
+        custom_phone_uploader.on('select', function() {
+            attachment = custom_phone_uploader.state().get('selection').first().toJSON();
+            $('#form_image_phone').val(attachment.url);
+        });
+
+        //Open the uploader dialog
+        custom_phone_uploader.open();
+    });
     $("form#update_site4_genesis").submit(function( event ) {
         event.preventDefault();
         $('.alertContainer').css({'display':'block'});
@@ -87,6 +141,7 @@ jQuery(document).ready(function($){
         $(".error_site4").css({'display': 'none'});
         $(".success_site4").css({'display': 'none'});
         var pUrl = $('#pUrl').val();
+        console.log(jQuery('#ttcBack').val());
         var dataPost = $(this).serialize();
         //console.log(dataPost);
         $.ajax({
@@ -98,8 +153,8 @@ jQuery(document).ready(function($){
                 $(".loading_site4").css({  'display': 'none' });
                 if (msg.d)
                 {
-                   $(".success_site4").css({'display': 'block'});
-                   $(".success_site4").html(msg.d);
+                    $(".success_site4").css({'display': 'block'});
+                    $(".success_site4").html(msg.d);
                 }
                 else{
                     $(".error_site4").css({'display': 'block'});
@@ -125,5 +180,57 @@ jQuery(document).ready(function($){
     /*$(function() {
         $(".set-1").mtabs();
     });*/
+    $('.color').each( function() {
+        //
+        // Dear reader, it's actually very easy to initialize MiniColors. For example:
+        //
+        //  $(selector).minicolors();
+        //
+        // The way I've done it below is just for the demo, so don't get confused
+        // by it. Also, data- attributes aren't supported at this time...they're
+        // only used for this demo.
+        //
+        $(this).minicolors({
+            control: $(this).attr('data-control') || 'hue',
+            defaultValue: $(this).attr('data-defaultValue') || '',
+            format: $(this).attr('data-format') || 'hex',
+            keywords: $(this).attr('data-keywords') || '',
+            inline: $(this).attr('data-inline') === 'true',
+            letterCase: $(this).attr('data-letterCase') || 'lowercase',
+            opacity: $(this).attr('data-opacity'),
+            position: $(this).attr('data-position') || 'bottom left',
+            swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+            change: function(value, opacity) {
+                if( !value ) return;
+                if( opacity ) value += ', ' + opacity;
+                if( typeof console === 'object' ) {
+                    console.log(value);
+                }
+            },
+            theme: 'bootstrap'
+        });
+
+    });
+
+    jQuery('.switchRadio').on('change',function(){
+        var ttc = jQuery(this).val();
+        var idGet = jQuery(this).attr('data-getid');
+        //alert(idGet);
+        if(ttc == 1){
+            jQuery('#' +idGet).css('display','block');
+        }else{
+            jQuery('#' +idGet).css('display','none');
+        }
+    })
+    jQuery('.switchRadio1').on('change',function(){
+        var ttc = jQuery(this).val();
+        //alert(ttc);
+        var idGet = jQuery(this).attr('data-getid');
+        if(ttc == 1){
+            jQuery('.' +idGet).css('display','block');
+        }else{
+            jQuery('.' +idGet).css('display','none');
+        }
+    })
 
 });

@@ -135,10 +135,8 @@ if ( ! function_exists( 'site4custom_head_global') ) {
     function site4custom_head_global(){
         $css = "<style type='text/css'>";
         $css .= ".site-inner {max-width: 1140px !important;}.fl-row-fixed-width{max-width:1115px !important;}.fl-row-content-wrap{padding:0 !important;}";
-        $css .= ".site-inner{padding-top:70px !important;}@media only screen and (max-width: 800px){.site-inner{padding-top:0 !important;}}";
-        $css .= ".site4MainContainer{width:100%;max-width: 1100px; margin: 0 auto;}
+        $css .= ".site4MainContainer{width:100%;max-width: 1100px; margin: 0 auto;overflow: hidden;}
         header.site-header{display: none !important;}
-        .site-inner{padding-top:70px !important;}
         @media only screen and (max-width: 1026px){
         .site-inner{padding-top:0px !important;}
         }
@@ -218,12 +216,15 @@ if ( ! function_exists( 'site4_get_data') ) {
         return $data;
     }
 }
-
+if ( ! function_exists( 'site4_en_scripts') ) {
+    function site4_en_scripts()
+    {
+        wp_enqueue_style('site4-bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+        wp_enqueue_script( 'bootstrap-js-global', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', '', '' ,true);
+    }
+}
+add_action( 'wp_enqueue_scripts', 'site4_en_scripts' );
 //admin hook
 include('admin/adminFunctions.php');
 //frontend hook
-if($headerOptionF->header_option == 2){
-    include('frontend/frontend_option2.php');
-}else{
-    include('frontend/frontend.php');
-}
+include('frontend/frontend_global.php');

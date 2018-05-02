@@ -8,7 +8,7 @@ if ( ! function_exists( 'site4custom_head_option2') ) {
         $css = "<style type='text/css'>";
         $css .= '.topBar{width:auto;font-size:'.$data['topBarData']['font_size'].';background:'.$data['topBarData']['background_color'].';padding:5px; color:'.$data['topBarData']['font_color'].';text-align:right;}';
         $css .= ".site4warper{width:100%; margin: 0; padding:0;min-height: 200px;background:" . $data['custom_header_data']['background_color'] . " url('" . $data['custom_header_data']['background_image'] . "');}";
-        $css .= '.logoAreaOption2{width:100%;max-width:280px; margin: 0 auto;padding: 10px 0;}';
+        $css .= '.logoAreaOption2{width:100%;max-width:280px; margin: 0 auto;padding: 10px 0;text-align:center;}';
         $css .= ".site4BannerArea{width:100%;min-height:".$data['bannerData']['bannerHeight'].";overflow:hidden;background:".$data['bannerData']['bannerBackgroundColor']." url('".$data['bannerData']['bannerBackground']."') no-repeat;background-size:cover;}
         .site4BannerLeftC{width:90%; max-width:500px;padding-top:".$data['bannerData']['bannerTextTopMargin'].";float:left;}
         .site4BannerLeft{width:auto;padding:20px;font-weight:bold;background:".$data['bannerData']['bannerTextBackgroundColor'].";font-size:".$data['bannerData']['bannerTextSize'].";color:".$data['bannerData']['bannerTextFontColor'].";}
@@ -37,7 +37,8 @@ if ( ! function_exists( 'site4custom_after_header') ) {
     function site4custom_after_header()
     {
         $data = site4_get_data();
-        $form = do_shortcode($data['formData']['formShortcode']);
+        $formID = $data['formData']['formShortcode'];
+        $form = do_shortcode('[gravityform id="'.$formID.'"]');
         echo '<div class="site4BannerArea">
                 <div class="site4MainContainer">
                 <div class="site4BannerLeftC">

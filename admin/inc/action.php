@@ -1,12 +1,15 @@
 <?php
 define('WP_USE_THEMES', false);
 require_once('../../../../../wp-load.php');
+/*$file = fopen("request.log","a");
+fwrite($file,"raw_data:". http_build_query($_POST)."\n\n" );
+fclose($file);*/
 if($_POST['upd_site4'] == 'yes_upd')
 {
     $headerOptionPost = $_POST['header_option'];
     $upHoption = sites4_action_acpage('update','sites4custom_header_option',array('header_option' => $headerOptionPost),1);
     //Option 1 Settings
-    $tapCallyes = $_POST['wtsttcm'];
+    $tapCallyes = $_POST['switch_ttc'];
     $tapCallArray = array(
         'phonenumber'   => $_POST['phonenumber'],
         'bgcolor_tap'   => $_POST['ttcBack'],
@@ -21,12 +24,21 @@ if($_POST['upd_site4'] == 'yes_upd')
         'logo' => $_POST['ad_image'],
         'background_image' => $_POST['upload_back_image'],
         'background_color' => $_POST['backgroundColor'],
-        'phone_number' => $_POST['phoneNumber']
+        'phone_number' => $_POST['phoneNumber'],
+        'button1_color' => $_POST['mobButton1'],
+        'button1_txt' => $_POST['mobButtonTxt1'],
+        'button1_txt_color' => $_POST['mobButton1txtC'],
+        'button2_color' => $_POST['mobButton2'],
+        'button2_txt' => $_POST['mobButtonTxt2'],
+        'button2_txt_color' => $_POST['mobButton2txtC'],
+        'page_meta' => $_POST['pageMeta'],
+        'page_meta_color' => $_POST['pageMetaTxtC'],
+        'pop_form_id' => $_POST['popFormID']
     );
     $cusH = serialize($cusHarray);
     $custom_header_data = base64_encode($cusH);
 
-    $header_right = '0';
+    $header_right = $_POST['switch_right_header'];
     $hRightArray = array(
         'color1' => $_POST['color1'],
         'color2' => $_POST['color2'],
@@ -42,7 +54,8 @@ if($_POST['upd_site4'] == 'yes_upd')
         'linkPage' => $_POST['linkPage'],
         'text1FontSize' => $_POST['text1FontSize'],
         'text2FontSize' => $_POST['text2FontSize'],
-        'text3FontSize' => $_POST['text3FontSize']
+        'text3FontSize' => $_POST['text3FontSize'],
+        'phone_icon' => $_POST['phone_icon']
     );
     $hRight = serialize($hRightArray);
     $header_right_data = base64_encode($hRight);
@@ -57,6 +70,7 @@ if($_POST['upd_site4'] == 'yes_upd')
 
     //Option 2
     $topBarData = array(
+        'top_bar_show' => $_POST['switch_top_bar'],
         'text' => $_POST['topBarText'],
         'background_color' => $_POST['topBarBackgroundColor'],
         'font_size' => $_POST['topBarFontSize'],
@@ -66,6 +80,7 @@ if($_POST['upd_site4'] == 'yes_upd')
     $top_bar_data = base64_encode($topBarDataS);
 
     $bannerAreaData = array(
+        'banner_show' => $_POST['switch_banner'],
         'bannerBackground' => $_POST['bannerBackground'],
         'bannerBackgroundColor' => $_POST['bannerBackgroundColor'],
         'bannerTextFontColor' => $_POST['bannerTextFontColor'],
@@ -73,14 +88,16 @@ if($_POST['upd_site4'] == 'yes_upd')
         'bannerText' => $_POST['bannerText'],
         'bannerHeight' => $_POST['bannerHeight'],
         'bannerTextTopMargin' => $_POST['bannerTextTopMargin'],
-        'bannerTextSize' => $_POST['bannerTextSize']
+        'bannerTextSize' => $_POST['bannerTextSize'],
+        'border_bottom_color' => $_POST['border_bottom_color']
     );
     $bannerAreaDataS = serialize($bannerAreaData);
     $bannerAreaDataEn = base64_encode($bannerAreaDataS);
 
     $formData = array(
         'formBackgroundColor' => $_POST['formBackgroundColor'],
-        'formShortcode' => $_POST['formShortcode']
+        'formShortcode' => $_POST['formShortcode'],
+        'form_image' => $_POST['form_image']
     );
 
     $formDataS = serialize($formData);
